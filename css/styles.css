@@ -5,6 +5,7 @@
   --secondary-bg-color: #2f303a;
   --button-bg-color: #f5f4fa;
   --team-bg-color: #f5f4fa;
+  --backdrop-bg: rgba(0, 0, 0, 0.2);
 
   --title-text-color: #212121;
   --text-color: #757575;
@@ -15,6 +16,9 @@
   --border-color: #eeeeee;
   --icon-color: #afb1b8;
   --icon-bg-footer: rgba(255, 255, 255, 0.1);
+
+  --duration: 250ms;
+  --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 html {
@@ -134,6 +138,7 @@ body {
 
 .site-nav-links .link {
   display: block;
+  position: relative;
 
   padding-top: 32px;
   padding-bottom: 32px;
@@ -144,14 +149,33 @@ body {
   text-decoration: none;
 
   color: var(--title-text-color);
+
+  transform: color;
+
+  transition: color var(--duration) var(--timing-function);
 }
 
 .site-nav-links .link.current {
   color: var(--accent-color);
 }
 
+.current::after {
+  position: absolute;
+  display: block;
+  bottom: 0;
+
+  content: "";
+
+  width: 100%;
+  height: 4px;
+
+  background-color: var(--accent-color);
+  border-radius: 2px;
+}
+
 .site-nav-links .link:hover,
 .site-nav-links .link:focus {
+  transform: color;
   color: var(--accent-color);
 }
 
@@ -176,11 +200,14 @@ body {
   text-decoration: none;
 
   color: var(--text-color);
+
+  transition: color var(--duration) var(--timing-function);
 }
 
 .auth-nav .link:hover,
 .auth-nav .link:focus {
   color: var(--accent-color);
+  transform: color;
 }
 
 .icon-auth-nav {
@@ -247,17 +274,68 @@ body {
   text-transform: none;
 
   color: var(--main-bg-color);
-  background-color: var(--accent-button);
+  background-color: var(--accent-color);
 
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
 
   cursor: pointer;
+  transition: background-color var(--duration) var(--timing-function);
 }
 
 .button:hover,
 .button:focus {
-  color: var(--title-text-color);
-  background-color: var(--button-bg-color);
+  background-color: var(--accent-button);
+  transform: background-color;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background-color: var(--backdrop-bg);
+
+  opacity: 1;
+  transition: opacity var(--duration) var(--timing-function);
+}
+
+.backdrop.is-hidden {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 528px;
+  min-height: 581px;
+  background-color: var(--main-bg-color);
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
+    0px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  margin: 0;
+  background: var(--main-bg-color);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
 }
 
 /* Benefits */
@@ -331,6 +409,37 @@ body {
   justify-content: space-between;
 }
 
+.list-images .item {
+  position: relative;
+  z-index: -1;
+}
+
+.list-images .item::after {
+  position: absolute;
+  bottom: 0;
+
+  content: "";
+  display: block;
+  width: 100%;
+  height: 70px;
+
+  background: rgba(47, 48, 58, 0.8);
+}
+
+.description-work {
+  position: absolute;
+  bottom: 27px;
+  width: 100%;
+  z-index: 1;
+
+  font-size: 14px;
+  line-height: 1.14;
+  text-align: center;
+  text-transform: uppercase;
+
+  color: var(--main-bg-color);
+}
+
 /* our team */
 
 .section-team {
@@ -388,8 +497,12 @@ body {
   justify-content: center;
   width: 44px;
   height: 44px;
+  border-radius: 50%;
 
   fill: var(--icon-color);
+
+  transition: fill var(--duration) var(--timing-function),
+    background-color var(--duration) var(--timing-function);
 }
 
 .social-link:hover,
@@ -397,6 +510,7 @@ body {
   fill: var(--main-bg-color);
   background-color: var(--accent-color);
   border-radius: 50%;
+  transform: fill, background-color;
 }
 
 /* Regular customers */
@@ -426,6 +540,9 @@ body {
 
   border: 1px solid var(--icon-color);
   border-radius: 4px;
+
+  transition: fill var(--duration) var(--timing-function),
+    border var(--duration) var(--timing-function);
 }
 
 .customer-link:hover,
@@ -433,6 +550,7 @@ body {
   fill: var(--accent-color);
   border: 1px solid var(--accent-color);
   border-radius: 4px;
+  transform: fill, border;
 }
 
 /* Fotter */
@@ -475,11 +593,14 @@ body {
 .link-auth-nav-footer {
   text-decoration: none;
   color: var(--link-auth-nav-footer);
+
+  transition: color var(--duration) var(--timing-function);
 }
 
 .link-auth-nav-footer:hover,
 .link-auth-nav-footer:focus {
   color: var(--accent-color);
+  transform: color;
 }
 
 .socials-footer {
@@ -509,11 +630,15 @@ body {
   border-radius: 50%;
 
   background-color: var(--icon-bg-footer);
+
+  transition: background-color var(--duration) var(--timing-function);
 }
 
 .social-link-footer:hover,
 .social-link-footer:focus {
   background-color: var(--accent-color);
+
+  transform: background-color;
 }
 
 .social-icon-footer {
@@ -547,6 +672,10 @@ body {
 
   color: var(--title-text-color);
   cursor: pointer;
+
+  transition: color var(--duration) var(--timing-function),
+    background-color var(--duration) var(--timing-function),
+    box-shadow var(--duration) var(--timing-function);
 }
 
 .filter:hover,
@@ -556,6 +685,8 @@ body {
 
   box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.08),
     0px 2px 2px rgba(0, 0, 0, 0.12);
+
+  transform: color, background-color, box-shadow;
 }
 
 .filter.active {
@@ -586,12 +717,49 @@ body {
 
 .project-link {
   display: block;
+  transition: box-shadow var(--duration) var(--timing-function);
 }
 
 .project-link:hover,
 .project-link:focus {
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06),
     1px 4px 6px rgba(0, 0, 0, 0.16);
+
+  transform: box-shadow;
+}
+
+.project-link:hover .overlay-project,
+.project-link:focus .overlay-project {
+  transform: translateY(0);
+}
+
+.image-project {
+  position: relative;
+  overflow: hidden;
+}
+
+.overlay-project {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+  padding-left: 24px;
+  padding-right: 24px;
+
+  background-color: rgba(33, 150, 243, 0.9);
+
+  font-size: 18px;
+  line-height: 1.56;
+
+  color: var(--main-bg-color);
+
+  transform: translateY(100%);
+
+  transition: transform var(--duration) var(--timing-function);
 }
 
 .description-project {
