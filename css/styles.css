@@ -150,8 +150,6 @@ body {
 
   color: var(--title-text-color);
 
-  transform: color;
-
   transition: color var(--duration) var(--timing-function);
 }
 
@@ -175,7 +173,6 @@ body {
 
 .site-nav-links .link:hover,
 .site-nav-links .link:focus {
-  transform: color;
   color: var(--accent-color);
 }
 
@@ -207,7 +204,6 @@ body {
 .auth-nav .link:hover,
 .auth-nav .link:focus {
   color: var(--accent-color);
-  transform: color;
 }
 
 .icon-auth-nav {
@@ -285,7 +281,6 @@ body {
 .button:hover,
 .button:focus {
   background-color: var(--accent-button);
-  transform: background-color;
 }
 
 .backdrop {
@@ -298,7 +293,8 @@ body {
   background-color: var(--backdrop-bg);
 
   opacity: 1;
-  transition: opacity var(--duration) var(--timing-function);
+  transition: opacity var(--duration) var(--timing-function),
+    visibility var(--duration) var(--timing-function);
 }
 
 .backdrop.is-hidden {
@@ -409,35 +405,28 @@ body {
   justify-content: space-between;
 }
 
-.list-images .item {
+.works-overlay {
   position: relative;
   z-index: -1;
 }
 
-.list-images .item::after {
-  position: absolute;
-  bottom: 0;
-
-  content: "";
-  display: block;
-  width: 100%;
-  height: 70px;
-
-  background: rgba(47, 48, 58, 0.8);
-}
-
 .description-work {
   position: absolute;
-  bottom: 27px;
+  display: flex;
+  left: 0;
+  bottom: 0px;
   width: 100%;
-  z-index: 1;
+  height: 70px;
+  align-items: center;
+  justify-content: center;
 
-  font-size: 14px;
   line-height: 1.14;
-  text-align: center;
+
   text-transform: uppercase;
 
   color: var(--main-bg-color);
+
+  background: rgba(47, 48, 58, 0.8);
 }
 
 /* our team */
@@ -509,8 +498,6 @@ body {
 .social-link:focus {
   fill: var(--main-bg-color);
   background-color: var(--accent-color);
-  border-radius: 50%;
-  transform: fill, background-color;
 }
 
 /* Regular customers */
@@ -550,7 +537,6 @@ body {
   fill: var(--accent-color);
   border: 1px solid var(--accent-color);
   border-radius: 4px;
-  transform: fill, border;
 }
 
 /* Fotter */
@@ -600,7 +586,6 @@ body {
 .link-auth-nav-footer:hover,
 .link-auth-nav-footer:focus {
   color: var(--accent-color);
-  transform: color;
 }
 
 .socials-footer {
@@ -637,8 +622,6 @@ body {
 .social-link-footer:hover,
 .social-link-footer:focus {
   background-color: var(--accent-color);
-
-  transform: background-color;
 }
 
 .social-icon-footer {
@@ -685,8 +668,6 @@ body {
 
   box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.08),
     0px 2px 2px rgba(0, 0, 0, 0.12);
-
-  transform: color, background-color, box-shadow;
 }
 
 .filter.active {
@@ -724,8 +705,6 @@ body {
 .project-link:focus {
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06),
     1px 4px 6px rgba(0, 0, 0, 0.16);
-
-  transform: box-shadow;
 }
 
 .project-link:hover .overlay-project,
