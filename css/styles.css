@@ -408,7 +408,6 @@ body {
 
 .works-overlay {
   position: relative;
-  z-index: -1;
 }
 
 .description-work {
